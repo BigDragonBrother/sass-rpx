@@ -1,54 +1,42 @@
-# Rem
+# Rpx
 
-Sass mixin and function to use rem units with pixel fallback.  
+> Fork from: https://github.com/pierreburel/sass-rem
 
-Demo: [Sassmeister](http://sassmeister.com/gist/f75f0ffd0910a99eee77) / [Codepen](http://codepen.io/pierreburel/pen/ogGzgX)
+微信小程序用于 `px` 转换成 `rpx` 单位的 Sass 混入类/函数。
 
-Compatibility: [Sass](https://github.com/sass/sass) 3.2+ (3.3+ for maps), [LibSass](https://github.com/sass/libsass) and [PHPSass](https://github.com/richthegeek/phpsass)
+(大坑未更新)
 
-See also: https://github.com/pierreburel/sass-em
+演示: [Sassmeister](http://www.sassmeister.com/gist/a5820008884df7e255ef5715768d5af7) / [Codepen](http://codepen.io/pierreburel/pen/ogGzgX)
 
----
+适用于: [Sass](https://github.com/sass/sass) 3.2+ (3.3+ for maps)
 
-## Install
-
-Download [`_rem.scss`](https://raw.githubusercontent.com/pierreburel/sass-rem/master/_rem.scss) or install with [Bower](http://bower.io/) or [npm](https://www.npmjs.com/):
-
-### Bower
-
-```
-bower install sass-rem
-```
-
-### npm
-
-```
-npm install sass-rem
-```
+查看: https://github.com/pierreburel/sass-rem / https://github.com/pierreburel/sass-em
 
 ---
 
-## Usage
+## 安装
 
-Import `_rem.scss`, set the root font-size with `rem-baseline` mixin and use the `rem` mixin or function.
+Download [`_rpx.scss`](https://raw.githubusercontent.com/peckzeg/sass-rpx/master/_rpx.scss)
+
+---
+
+## 食用指南
+
+导入 `_rpx.scss`, 设置设计稿所使用的类型 `$rpx-base-draft` 然后开始使用 `rpx` 混入或函数。
 
 ### SCSS
 
 ```scss
-@import "rem";
-
-html {
-  @include rem-baseline;
-}
+@import "rpx";
 
 h1 {
-  @include rem(font-size, 24px); // Simple
-  @include rem(border-bottom, 1px solid black); // Shorthand
-  @include rem(box-shadow, 0 0 2px #ccc, inset 0 0 5px #eee); // Multiple values
-  text-shadow: rem(1px 1px #eee, -1px -1px #eee); // Function and multiple values, warning: no fallback possible with rem function
-  // Map support (Sass 3.3+)
-  @include rem((
-    margin: 20px 1rem,
+  @include rpx(font-size, 24px); // Simple
+  @include rpx(border-bottom, 1px solid black); // Shorthand
+  @include rpx(box-shadow, 0 0 2px #ccc, inset 0 0 5px #eee); // Multiple values
+  text-shadow: rpx(1px 1px #eee, -1px -1px #eee); // Function and multiple values
+  // List support (Sass 3.3+)
+  @include rpx((
+    margin: 20px 1px,
     padding: 10px
   ));
 }
@@ -57,82 +45,35 @@ h1 {
 ### CSS
 
 ```css
-html {
-  font-size: 62.5%;
-}
-
 h1 {
-  font-size: 24px;
-  font-size: 2.4rem;
-  border-bottom: 1px solid black;
-  border-bottom: 0.1rem solid black;
-  box-shadow: 0 0 2px #ccc, inset 0 0 5px #eee;
-  box-shadow: 0 0 0.2rem #ccc, inset 0 0 0.5rem #eee;
-  text-shadow: 0.1rem 0.1rem #eee, -0.1rem -0.1rem #eee; // No fallback
-  margin: 20px 10px;
-  margin: 2rem 1rem;
-  padding: 10px;
-  padding: 1rem;
+  font-size: 48rpx;
+  border-bottom: 2rpx solid black;
+  box-shadow: 0 0 4rpx #ccc, inset 0 0 10rpx #eee;
+  text-shadow: 2rpx 2rpx #eee, -2rpx -2rpx #eee;
+  margin: 40rpx 2rpx;
+  padding: 20rpx;
 }
 ```
 
 ---
 
-You can disable pixel fallback by setting `$rem-fallback` to `false`.
+## 改变设计稿类型
 
-### CSS
+默认下，sass-rpx 使用 `iphone6` 作为设计稿类型（更多类型可参照 [微信公众平台 | 小程序 - 框架 - WXSS - 尺寸单位](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/view/wxss.html?t=2017112)）。
 
-```css
-h1 {
-  font-size: 2.4rem;
-  border-bottom: 0.1rem solid black;
-  box-shadow: 0 0 0.2rem #ccc, inset 0 0 0.5rem #eee;
-  text-shadow: 0.1rem 0.1rem #eee, -0.1rem -0.1rem #eee;
-  margin: 2rem 1rem;
-  padding: 1rem;
-}
-```
-
----
-
-You can totally disable rem units by setting `$rem-px-only` to `true` (for a lt-ie9 only stylesheet for example).
-
-### CSS
-
-```css
-h1 {
-  font-size: 24px;
-  border-bottom: 1px solid black;
-  box-shadow: 0 0 2px #ccc, inset 0 0 5px #eee;
-  text-shadow: 1px 1px #eee, -1px -1px #eee; // Fallback works here
-  margin: 20px 10px;
-  padding: 10px;
-}
-```
-
----
-
-## Changing baseline
-
-By default, sass-rem uses a 10px baseline (root font size to 62.5%) for readability reasons (10px = 1rem).
-You can change this value using the `$rem-baseline` variable.
-The `rem-baseline` mixin will adjust the root font size and `rem` function and mixin will calculate rem values and px fallbacks automatically.
+当然，你可以通过改变 `$rpx-base-draft` 来修改该值。
 
 ### SCSS
 
 ```scss
-@import "rem";
+@import "rpx";
 
-$rem-baseline: 16px;
-
-html {
-  @include rem-baseline; // Optional with 16px baseline
-}
+$rpx-base-draft: iphone6 plus;
 
 h1 {
-  @include rem((
+  @include rpx((
     font-size: 24px,
-    margin: 10px 1rem
+    margin: 10px 1rpx
   ));
 }
 ```
@@ -140,56 +81,8 @@ h1 {
 ### CSS
 
 ```css
-html {
-  font-size: 100%;
-}
-
 h1 {
-  font-size: 24px;
-  font-size: 1.5rem;
-  margin: 10px 16px;
-  margin: 0.625rem 1rem;
-}
-```
-
----
-
-You can also change the baseline zoom by passing the desired zoom to the `rem-baseline` mixin which will calculate it depending of `$rem-baseline`. Useful for creating responsive typography depending on viewport, especially with a different baseline than 16px.
-
-### SCSS
-
-```scss
-@import "rem";
-
-html {
-  @include rem-baseline; // Default zoom to 100%
-
-  @media (max-width: 400px) {
-    @include rem-baseline(75%);
-  }
-
-  @media (min-width: 800px) {
-    @include rem-baseline(125%);
-  }
-}
-```
-
-### CSS
-
-```css
-html {
-  font-size: 62.5%;
-}
-
-@media (max-width: 400px) {
-  html {
-    font-size: 46.875%;
-  }
-}
-
-@media (min-width: 800px) {
-  html {
-    font-size: 78.125%;
-  }
+  font-size: 48rpx;
+  margin: 20rpx 1rpx;
 }
 ```

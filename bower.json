@@ -1,15 +1,16 @@
 {
-  "name": "sass-rem",
-  "description": "Sass mixin and function to use rem units with pixel fallback.",
-  "version": "1.2.3",
-  "homepage": "https://github.com/pierreburel/sass-rem",
+  "name": "sass-rpx",
+  "description": "Sass mixin and function to use rpx units with pixel fallback for wx app.",
+  "version": "1.0.0",
+  "homepage": "https://github.com/PeckZeg/sass-rpx",
   "main": "_rem.scss",
   "authors": [
-    "Pierre Burel <pierre.burel@gmail.com>"
+    "Pierre Burel <pierre.burel@gmail.com>",
+    "PeckZeg <peck.zeg@gmail.com>"
   ],
   "keywords": [
     "sass",
-    "rem",
+    "rpx",
     "responsive",
     "fallback"
   ],
